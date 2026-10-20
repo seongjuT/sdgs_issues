@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SDG 이슈랩</title>
+<meta name="description" content="SDGs 목표별 사회 이슈를 탐색하고, 이슈에서 아이디어와 서비스 컨셉을 도출하는 수업용 사이트">
+<meta name="theme-color" content="#1d4ed8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&family=Gothic+A1:wght@800;900&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><h1>SDG 이슈랩</h1><span class="meta" id="meta">이슈 불러오는 중…</span></div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" id="tab-issues" data-view="issues" aria-selected="true">이슈 탐색</button>
+      <button role="tab" id="tab-lab" data-view="lab" aria-selected="false">아이디어 랩</button>
+      <button role="tab" id="tab-design" data-view="design" aria-selected="false">서비스 설계</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- 이슈 탐색 -->
+  <section class="view" id="view-issues">
+    <h2>이슈 탐색</h2>
+    <p class="lead">검증된 보고서·통계·언론 보도로 확인한 최근 5년 이내 이슈입니다. 목표 타일을 눌러 해당 SDG 이슈만 볼 수 있습니다.</p>
+    <div class="goals" id="goals"></div>
+    <p class="goallegend">타일 오른쪽 위 숫자는 해당 목표와 관련된 이슈 건수입니다. 흐리게 보이는 목표는 아직 이슈가 없습니다.</p>
+    <div class="toolbar">
+      <div class="seg" id="domains"></div>
+      <input class="search" id="q" type="search" placeholder="키워드 검색 (예: 폭염, AI, 청년)" aria-label="키워드 검색">
+      <span class="count" id="count"></span>
+    </div>
+    <div class="grid" id="issues"></div>
+  </section>
+
+  <!-- 아이디어 랩 -->
+  <section class="view" id="view-lab" hidden>
+    <h2>아이디어 랩</h2>
+    <p class="lead">이슈 하나를 골라 문제 정의 → 이해관계자 → 아이디어 → 서비스 컨셉 순서로 정리합니다. 정답보다 문제를 보는 관점을 기록하는 것이 목적입니다.</p>
+    <div class="notice"><div><b>작성한 내용은 지금 쓰는 기기의 브라우저에만 저장됩니다.</b>다른 기기에서는 보이지 않으니, 완성한 카드는 "파일로 저장"이나 "복사하기"로 선생님께 제출하세요.</div></div>
+    <div class="lab">
+      <aside class="picked">
+        <div class="field"><label for="pickIssue">대상 이슈</label><select id="pickIssue"></select></div>
+        <div id="pickedInfo"></div>
+      </aside>
+      <div>
+        <div class="steps" role="tablist" id="steps"></div>
+        <div class="panel" id="stepPanel"></div>
+      </div>
+    </div>
+    <div class="board">
+      <h3>내 아이디어 보드 <span class="count" id="ideaCount"></span></h3>
+      <div class="boardbar"><div class="seg" id="ideaGoalFilter"></div><button class="chip" id="exportAll" hidden>전체를 파일로 저장</button></div>
+      <div class="status" id="boardStatus"></div>
+      <div class="grid" id="ideas"></div>
+    </div>
+  </section>
+
+  <!-- 서비스 설계 -->
+  <section class="view" id="view-design" hidden>
+    <section>
+      <h2>서비스 흐름</h2>
+      <p class="lead">이슈 탐색부터 서비스 기획까지 네 단계로 이어집니다. 각 단계의 산출물이 다음 단계의 입력이 됩니다.</p>
+      <div class="flow">
+        <div class="st"><div class="k">STEP 1 · 수집</div><h4>이슈 데이터베이스</h4><p>선생님이 UN 보고서, 국가승인통계, 주요 언론에서 확인한 이슈를 출처와 함께 올립니다.</p></div>
+        <div class="st"><div class="k">STEP 2 · 탐색</div><h4>목표별 필터</h4><p>17개 목표, 분야, 키워드로 좁혀 보고 이슈 상세에서 근거와 출처를 확인합니다.</p></div>
+        <div class="st"><div class="k">STEP 3 · 발상</div><h4>아이디어 랩</h4><p>HMW 질문으로 문제를 정의하고 이해관계자를 정리한 뒤 발상 카드로 아이디어를 넓힙니다.</p></div>
+        <div class="st"><div class="k">STEP 4 · 기획</div><h4>서비스 컨셉 카드</h4><p>대상, 핵심 기능, 기술, 성과 지표를 한 장에 정리해 파일로 제출합니다.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>아이디어로 만들 서비스의 화면 구성 예시</h2>
+      <p class="lead">아이디어 랩에서 나온 컨셉을 실제 앱·웹 서비스로 만들 때 쓸 수 있는 기본 화면 구성입니다. 이슈 유형별로 자주 쓰는 패턴을 정리했습니다.</p>
+      <div class="screens">
+        <div class="scr" style="--g:#DD1367">
+          <h4>안내·도우미형</h4><div class="who">예: 디지털 격차 → 고령층 키오스크 연습 앱</div>
+          <div class="phone"><div class="bar a"></div><div class="blk"></div><div class="blk"></div><div class="row"><span></span><span></span></div></div>
+          <ul><li>큰 글씨·음성 안내 기본값</li><li>한 화면에 한 가지 행동만</li><li>실수해도 되돌릴 수 있는 연습 모드</li></ul>
+        </div>
+        <div class="scr" style="--g:#3F7E44">
+          <h4>측정·알림형</h4><div class="who">예: 폭염 → 야외 근로자 온열질환 알림</div>
+          <div class="phone"><div class="bar a"></div><div class="row"><span></span><span></span><span></span></div><div class="blk"></div><div class="bar"></div></div>
+          <ul><li>위험 단계를 색과 문구로 함께 표시</li><li>푸시 알림 + 행동 지침 1줄</li><li>공공 데이터 API 연동 (기상청 등)</li></ul>
+        </div>
+        <div class="scr" style="--g:#BF8B2E">
+          <h4>기록·참여형</h4><div class="who">예: 전자폐기물 → 폐휴대폰 수거 지도·인증</div>
+          <div class="phone"><div class="blk"></div><div class="row"><span></span><span></span></div><div class="bar a"></div><div class="bar"></div></div>
+          <ul><li>지도에서 수거함 찾기</li><li>사진 인증 → 포인트·랭킹</li><li>학교·반 단위 누적 성과 공유</li></ul>
+        </div>
+        <div class="scr" style="--g:#FF3A21">
+          <h4>신고·보호형</h4><div class="who">예: 딥페이크 → 학생용 피해 대응 안내</div>
+          <div class="phone"><div class="bar a"></div><div class="blk"></div><div class="blk"></div><div class="bar"></div></div>
+          <ul><li>익명 접근, 기록 남기지 않는 기본값</li><li>단계별 대응 체크리스트</li><li>공식 상담 기관 연결</li></ul>
+        </div>
+        <div class="scr" style="--g:#19486A">
+          <h4>연결·매칭형</h4><div class="who">예: 고립 청년 → 소규모 활동 모임 매칭</div>
+          <div class="phone"><div class="row"><span></span><span></span><span></span></div><div class="blk"></div><div class="blk"></div><div class="bar a"></div></div>
+          <ul><li>부담 낮은 첫 참여 (관심사 선택만)</li><li>온라인 → 오프라인 점진 연결</li><li>매칭 결과 피드백 루프</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>UX 원칙</h2>
+      <div class="principles">
+        <div><b>근거 먼저</b><span>모든 이슈는 수치와 출처 링크를 함께 보여주고, 출처 없는 주장은 올리지 않습니다.</span></div>
+        <div><b>목표 색은 공식 SDG 색</b><span>17개 목표의 공식 색을 그대로 써서 교실 포스터·교재와 바로 연결됩니다.</span></div>
+        <div><b>모바일에서도 한 손 조작</b><span>목표 타일은 가로 스크롤, 상세는 오른쪽 서랍으로 열려 목록 위치를 잃지 않습니다.</span></div>
+        <div><b>발상은 넓게, 선택은 좁게</b><span>발상 카드로 여러 방향을 먼저 펼친 뒤, 사용자의 가장 큰 불편 하나에 맞는 아이디어를 고릅니다.</span></div>
+        <div><b>과정을 남기기</b><span>단계별 입력이 그대로 컨셉 카드가 되어, 결과보다 사고 과정을 평가할 수 있습니다.</span></div>
+      </div>
+    </section>
+  </section>
+</main>
+
+<footer class="site"><div class="wrap" id="footer">SDG 이슈랩 · 이슈 출처는 각 이슈 상세에서 확인할 수 있습니다.</div></footer>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-modal="true" role="dialog" aria-labelledby="dTitle"></aside>
+
+<script src="data/issues.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
